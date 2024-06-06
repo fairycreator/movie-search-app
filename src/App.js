@@ -1,11 +1,10 @@
 import React, { useState } from "react";
-import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
+import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
 import axios from "axios";
 import SearchBar from "./components/SearchBar";
 import MovieList from "./components/MovieList";
 import MovieDetail from "./components/MovieDetail";
 import styled from "styled-components";
-import GlobalStyle from "./styles";
 
 const Container = styled.div`
   max-width: 1200px;
@@ -26,16 +25,13 @@ const App = () => {
 
   return (
     <Router>
-      <GlobalStyle />
       <Container>
         <h1>Movie Search App</h1>
         <SearchBar onSearch={handleSearch} />
-        <Switch>
-          <Route path="/" exact>
-            <MovieList movies={movies} />
-          </Route>
-          <Route path="/movie/:id" component={MovieDetail} />
-        </Switch>
+        <Routes>
+          <Route path="/" element={<MovieList movies={movies} />} />
+          <Route path="/movie/:id" element={<MovieDetail />} />
+        </Routes>
       </Container>
     </Router>
   );
